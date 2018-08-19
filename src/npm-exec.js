@@ -1,9 +1,20 @@
+import { execSync } from "child_process";
+
 // import { exec } from 'child_process';
 
 class NpmExec{
   constructor(){
     this.action;
     this.arguments = [];
+  }
+
+  static hasNpm(){
+    try{
+      return execSync('npm -v');
+    }catch(error){
+      console.log('npm is not installed');
+      return false;
+    }
   }
 
   launchExec(){
