@@ -5,8 +5,8 @@
   "author": "Alejandro Barata <alexbgdev@gmail.com>",
   "license": "GPL-3.0+",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/alexbg/simple-npm-api"
+    "type": "git",
+    "url": "https://github.com/alexbg/simple-npm-api"
   },
   "main": "./dist/main.js",
   "scripts": {
