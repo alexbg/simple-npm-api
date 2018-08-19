@@ -4,7 +4,7 @@ module.exports = {
   entry: './index.js',
   mode: 'development',
   target: 'node',
-  watch: false,
+  watch: true,
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')

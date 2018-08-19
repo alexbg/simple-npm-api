@@ -1,5 +1,5 @@
 {
-  "name": "@alexbg/simple-npm-api",
+  "name": "simple-npm-api",
   "version": "0.0.1",
   "description": "simple npm api for node",
   "author": "Alejandro Barata <alexbgdev@gmail.com>",

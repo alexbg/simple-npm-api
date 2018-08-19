@@ -17,19 +17,11 @@ class NpmNodeApi extends EventEmitter{
   }
 }
 
-export default NpmNodeApi;
 
 let test = new NpmNodeApi();
-// console.log(new NpmNodeApi())
-// test.on('loaded',(package)=>{
-//   // console.log(package);
-//   test.install({
-//     'name': 'json',
-//     'version': '0.0.0'
-//   });
-// });
 test.install({
-      'name': 'json',
-      'version': '0.0.0'
-    });
-// setTimeout(()=>{},3000);
+  name: 'json',
+  version: '0.0.0',
+  global: true
+});
+export default NpmNodeApi;

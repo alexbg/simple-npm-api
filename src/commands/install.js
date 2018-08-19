@@ -8,7 +8,8 @@ class NpmInstall extends NpmExec{
       global: false,
       save: 'dev',
       version: 'latest',
-      versionRange: false
+      versionRange: false,
+      scope: false
     }
     this.action = 'install';
     this.options = Object.assign(defaultOptions,options);
@@ -18,6 +19,7 @@ class NpmInstall extends NpmExec{
   init(){
     this.setVersion();
     this.setSaveMode();
+    this.setGlobal();
     if(this.options['start']){
       this.launch();
     }
@@ -25,10 +27,20 @@ class NpmInstall extends NpmExec{
 
   setVersion(){
     let version = this.options.version;
+    let name = this.options.name;
     if(typeof version == 'object'){
       version = this.getVersionRange(version);
     }
-    this.arguments.push(this.options.name+'@'+version);
+    if(this.options.scope){
+      name = this.options.scope+'/'+this.options.name;
+    }
+    this.arguments.push(name+'@'+version);
+  }
+
+  setGlobal(){
+    if(this.options.global){
+      this.arguments.push('--global');
+    }
   }
 
   getVersionRange(version){
@@ -44,7 +56,6 @@ class NpmInstall extends NpmExec{
     }else{
       this.arguments.push('--no-save');
     }
-    
   }
 
   launch(options){
