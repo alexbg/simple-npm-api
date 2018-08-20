@@ -2,6 +2,7 @@
 import EventEmitter from 'events';
 import PackageController from './src/package/package-controller';
 import NpmInstall from './src/commands/install';
+import NpmUninstall from './src/commands/uninstall';
 import NpmExec from './src/npm-exec';
 
 class NpmNodeApi extends EventEmitter{
@@ -16,12 +17,20 @@ class NpmNodeApi extends EventEmitter{
     return new NpmInstall(options);
   }
   uninstall(options){
-    
+    if(this.npmPackage.existsPackage(options.name)){
+      return new NpmUninstall(options);
+    }
+    return null;
   }
 }
 
 
-let test = new NpmNodeApi();
+// let test = new NpmNodeApi();
+// test.uninstall({
+//   name: 'json',
+//   version: '0.0.0',
+//   global: true
+// });
 // console.log(test.npmPackage.getScripts());
 // console.log(test.npmPackage.existsPackage('babel-core'));
 // console.log(test.npmPackage.getPackageVersion('babel-core'));
