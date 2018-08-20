@@ -1,15 +1,20 @@
 import { access, readFileSync } from 'fs';
 import EventEmitter from 'events';
+const path = require('path');
 
 class PackageController extends EventEmitter{
   constructor(path){
     super();
-    // this.npmPackage;
     if(!path){
       path = './';
     }
     this.npmPackage = JSON.parse(readFileSync(path+'package.json'));
   }
+
+  getPackage(){
+    return this.npmPackage;  
+  }
+
   getDevDependencies(){
     return this.npmPackage.devDependencies;
   }
@@ -27,7 +32,7 @@ class PackageController extends EventEmitter{
   }
 
   getDependencies(){
-    return this.npmPackage.depedencies;
+    return this.npmPackage.dependencies;
   }
 
   getMain(){
@@ -49,7 +54,7 @@ class PackageController extends EventEmitter{
     let version = [];
     if(name){
       if(this.existsPackage(name,'dependencies')){
-        version.push(this.npmPackage.depedencies[name]) 
+        version.push(this.npmPackage.dependencies[name]) 
       }
       if(this.existsPackage(name,'devDependencies')){
         version.push(this.npmPackage.devDependencies[name]);
@@ -66,21 +71,46 @@ class PackageController extends EventEmitter{
    * @param {string} where
    * @returns boolean
    */
-  existsPackage(name,where){
+  existsPackage(packageInfo){
+    console.log(packageInfo);
     let exists = false;
-    if(where){
-      if(this.npmPackage[where] && this.npmPackage[where].hasOwnProperty(name)){
-        exists = true;
-      }
-    }else{
-      if(this.npmPackage.depedencies && this.npmPackage.depedencies.hasOwnProperty(name) ||
-        this.npmPackage.devDependencies && this.npmPackage.devDependencies.hasOwnProperty(name) ||
-        this.npmPackage.optionalDependencies && this.npmPackage.optionalDependencies.hasOwnProperty(name)
-      ){
-        exists = true;
-      }
+
+    if(this.npmPackage.dependencies && this.npmPackage.dependencies.hasOwnProperty(packageInfo.name) ||
+      this.npmPackage.devDependencies && this.npmPackage.devDependencies.hasOwnProperty(packageInfo.name) ||
+      this.npmPackage.optionalDependencies && this.npmPackage.optionalDependencies.hasOwnProperty(packageInfo.name)
+    ){
+      exists = true;
+    }
+
+    if(packageInfo.version && (
+      (this.npmPackage.dependencies && this.npmPackage.dependencies.hasOwnProperty(packageInfo.name) && this.npmPackage.dependencies[packageInfo.name] != packageInfo.version) ||
+      (this.npmPackage.devDependencies && this.npmPackage.devDependencies.hasOwnProperty(packageInfo.name) && this.npmPackage.devDependencies[packageInfo.name] != packageInfo.version) ||
+      (this.npmPackage.optionalDependencies && this.npmPackage.optionalDependencies.hasOwnProperty(packageInfo.name && this.npmPackage.optionalDependencies[packageInfo.name] != packageInfo.version))
+    )){
+     exists = false;
     }
     return exists;
+  }
+
+  existsPackageInDependencies(name){
+    if(this.npmPackage.dependencies.hasOwnProperty(name)){
+      return true;
+    }
+    return false;
+  }
+
+  existsPackageInDevDependencies(name){
+    if(this.npmPackage.devDependencies.hasOwnProperty(name)){
+      return true;
+    }
+    return false;
+  }
+
+  existspackageInOptionalDependencies(name){
+    if(this.npmPackage.optionalDependencies.hasOwnProperty(name)){
+      return true;
+    }
+    return false;
   }
 }
 

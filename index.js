@@ -11,13 +11,14 @@ class NpmNodeApi extends EventEmitter{
     if(!NpmExec.hasNpm()){
       return null;
     }
+    // console.log(__dirname);
     this.npmPackage = new PackageController();
   }
   install(options){
     return new NpmInstall(options);
   }
   uninstall(options){
-    if(this.npmPackage.existsPackage(options.name)){
+    if(this.npmPackage.existsPackage(options)){
       return new NpmUninstall(options);
     }
     return null;
@@ -25,18 +26,5 @@ class NpmNodeApi extends EventEmitter{
 }
 
 
-// let test = new NpmNodeApi();
-// test.uninstall({
-//   name: 'json',
-//   version: '0.0.0',
-//   global: true
-// });
-// console.log(test.npmPackage.getScripts());
-// console.log(test.npmPackage.existsPackage('babel-core'));
-// console.log(test.npmPackage.getPackageVersion('babel-core'));
-// test.install({
-//   name: 'json',
-//   version: '0.0.0',
-//   global: true
-// });
+let test = new NpmNodeApi();
 export default NpmNodeApi;
