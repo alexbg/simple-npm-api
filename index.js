@@ -12,7 +12,6 @@ class NpmNodeApi extends EventEmitter{
     if(!NpmExec.hasNpm()){
       return null;
     }
-    // console.log(__dirname);
     this.npmPackage = new PackageController();
   }
   install(options){
@@ -25,11 +24,18 @@ class NpmNodeApi extends EventEmitter{
     return null;
   }
   run(options){
-    return new NpmRun(options);
+    let runObject = new NpmRun(options);
+    if(runObject.options.start && runObject.canRun){
+      return runObject.launch();
+    }else if(runObject.options.start && !runObject.canRun){
+      return false;
+    }
+    return runObject;
   }
 }
 
 
 let test = new NpmNodeApi();
+console.log(test.run({command: 'cosas'}));
 
 export default NpmNodeApi;

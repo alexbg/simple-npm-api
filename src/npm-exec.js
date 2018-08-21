@@ -6,6 +6,7 @@ class NpmExec{
   constructor(){
     this.action;
     this.arguments = [];
+    this.canRun = true;
   }
 
   static hasNpm(){
@@ -17,9 +18,26 @@ class NpmExec{
     }
   }
 
+  requiredOptions(options,required){
+    this.canRun = true;
+    Object.keys(required).forEach((key)=>{
+      if(!options.hasOwnProperty(key) || (options.hasOwnProperty(key) && typeof options[key] != required[key])){
+        this.canRun = false;
+      }
+    });
+    console.log('UNOOOO');
+    console.log('isValid: ' + this.canRun);
+    return this.canRun;
+  }
+
+  reset(){
+    this.arguments = [];
+  }
+
   launchExec(){
     let command = ['npm',this.action].concat(this.arguments);
     console.log('COMMNAD: ' + command.join(' '));
+    return true;
     // exec(command.join(' '),(error,stdout,stderr)=>{
     //   if(error){
     //     // console.log(error);
