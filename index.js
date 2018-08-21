@@ -3,6 +3,7 @@ import EventEmitter from 'events';
 import PackageController from './src/package/package-controller';
 import NpmInstall from './src/commands/install';
 import NpmUninstall from './src/commands/uninstall';
+import NpmRun from './src/commands/run';
 import NpmExec from './src/npm-exec';
 
 class NpmNodeApi extends EventEmitter{
@@ -18,13 +19,17 @@ class NpmNodeApi extends EventEmitter{
     return new NpmInstall(options);
   }
   uninstall(options){
-    if(this.npmPackage.existsPackage(options)){
+    if(this.npmPackage.hasPackage(options)){
       return new NpmUninstall(options);
     }
     return null;
+  }
+  run(options){
+    return new NpmRun(options);
   }
 }
 
 
 let test = new NpmNodeApi();
+
 export default NpmNodeApi;

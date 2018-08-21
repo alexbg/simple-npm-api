@@ -53,25 +53,25 @@ class PackageController extends EventEmitter{
   getPackageVersion(name){
     let version = [];
     if(name){
-      if(this.existsPackage(name,'dependencies')){
+      if(this.hasPackage(name,'dependencies')){
         version.push(this.npmPackage.dependencies[name]) 
       }
-      if(this.existsPackage(name,'devDependencies')){
+      if(this.hasPackage(name,'devDependencies')){
         version.push(this.npmPackage.devDependencies[name]);
       }
-      if(this.existsPackage(name,'optionalDependencies')){
+      if(this.hasPackage(name,'optionalDependencies')){
         version.push(this.npmPackage.optionalDependencies[name]);
       }
     }
     return version;
   }
+  
   /**
    * 
-   * @param {string} name
-   * @param {string} where
+   * @param {object} packageInfo
    * @returns boolean
    */
-  existsPackage(packageInfo){
+  hasPackage(packageInfo){
     console.log(packageInfo);
     let exists = false;
 
@@ -92,21 +92,21 @@ class PackageController extends EventEmitter{
     return exists;
   }
 
-  existsPackageInDependencies(name){
+  hasPackageInDependencies(name){
     if(this.npmPackage.dependencies.hasOwnProperty(name)){
       return true;
     }
     return false;
   }
 
-  existsPackageInDevDependencies(name){
+  hasPackageInDevDependencies(name){
     if(this.npmPackage.devDependencies.hasOwnProperty(name)){
       return true;
     }
     return false;
   }
 
-  existspackageInOptionalDependencies(name){
+  hasPackageInOptionalDependencies(name){
     if(this.npmPackage.optionalDependencies.hasOwnProperty(name)){
       return true;
     }
