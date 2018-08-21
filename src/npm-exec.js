@@ -6,6 +6,7 @@ class NpmExec{
   constructor(){
     this.action;
     this.arguments = [];
+    this.required = {}
   }
 
   static hasNpm(){

@@ -15,13 +15,21 @@ class NpmNodeApi extends EventEmitter{
     this.npmPackage = new PackageController();
   }
   install(options){
-    return new NpmInstall(options);
+    let installObject = new NpmInstall(options);
+    if(installObject.options.start){
+      return installObject.launch();
+    }
+    return installObject;
   }
   uninstall(options){
     if(this.npmPackage.hasPackage(options)){
-      return new NpmUninstall(options);
+      let uninstallObject = new NpmUninstall(options);
+      if(uninstallObject.options.start){
+        return uninstallObject.launch();
+      }
+      return uninstallObject;
     }
-    return null;
+    return false;
   }
   run(options){
     let runObject = new NpmRun(options);
@@ -34,6 +42,4 @@ class NpmNodeApi extends EventEmitter{
 
 
 let test = new NpmNodeApi();
-console.log(test.run({command: 'dsadsa'}));
-
 export default NpmNodeApi;
