@@ -12,7 +12,6 @@ class NpmRun extends NpmExec{
       arguments: false
     }
     this.options = Object.assign(defaultOptions,options);
-    this.requiredOptions(this.options,this.required);
   }
 
   prepareCommand(){
@@ -30,10 +29,11 @@ class NpmRun extends NpmExec{
     // console.log(this.options);
     // console.log('Action: ' + this.action);
     // console.log('Arguments: ' + this.arguments);
-    if(this.canRun || this.requiredOptions(this.options,this.required)){
+    if(this.requiredOptions(this.options,this.required)){
       this.prepareCommand();
       return this.launchExec();
     }
+    return false;
   }
 }
 

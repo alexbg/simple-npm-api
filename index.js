@@ -25,10 +25,8 @@ class NpmNodeApi extends EventEmitter{
   }
   run(options){
     let runObject = new NpmRun(options);
-    if(runObject.options.start && runObject.canRun){
+    if(runObject.options.start){
       return runObject.launch();
-    }else if(runObject.options.start && !runObject.canRun){
-      return false;
     }
     return runObject;
   }
@@ -36,6 +34,6 @@ class NpmNodeApi extends EventEmitter{
 
 
 let test = new NpmNodeApi();
-console.log(test.run({command: 'cosas'}));
+console.log(test.run({command: 'dsadsa'}));
 
 export default NpmNodeApi;
