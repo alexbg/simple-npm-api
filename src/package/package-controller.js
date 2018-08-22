@@ -72,9 +72,7 @@ class PackageController extends EventEmitter{
    * @returns boolean
    */
   hasPackage(packageInfo){
-    console.log(packageInfo);
     let exists = false;
-
     if(this.npmPackage.dependencies && this.npmPackage.dependencies.hasOwnProperty(packageInfo.name) ||
       this.npmPackage.devDependencies && this.npmPackage.devDependencies.hasOwnProperty(packageInfo.name) ||
       this.npmPackage.optionalDependencies && this.npmPackage.optionalDependencies.hasOwnProperty(packageInfo.name)

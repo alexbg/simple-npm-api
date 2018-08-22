@@ -3,13 +3,12 @@ import NpmExec from '../npm-exec';
 class NpmRun extends NpmExec{
   constructor(options){
     super();
-    this.required = {
-      command: 'string'
+    this.valueTypes = {
+      command: {value: 'string', required: true},
+      arguments: {value: 'string'}
     }
     let defaultOptions = {
-      start: true,
-      command: false,
-      arguments: false
+      start: true
     }
     this.options = Object.assign(defaultOptions,options);
   }
@@ -29,7 +28,7 @@ class NpmRun extends NpmExec{
     // console.log(this.options);
     // console.log('Action: ' + this.action);
     // console.log('Arguments: ' + this.arguments);
-    if(this.requiredOptions(this.options,this.required)){
+    if(this.checkErrors(this.options,this.valueTypes)){
       this.prepareCommand();
       return this.launchExec();
     }

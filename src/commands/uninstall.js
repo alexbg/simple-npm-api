@@ -3,19 +3,20 @@ import NpmExec from '../npm-exec';
 class NpmUninstall extends NpmExec{
   constructor(options){
     super();
-    this.required = {
-      save: 'string',
-      name: 'string'
+    this.valueTypes = {
+      save: {value: 'string', required: true},
+      name: {value: 'string', required: true},
+      version: {value: 'string', required: true},
+      versionRange: {value: 'object'},
+      scope: {value: 'string'},
+      global: {value: 'boolean', required: true}
     }
     let defaultOptions = {
       start: true,
       global: false,
       save: 'dev',
-      version: 'latest',
-      versionRange: false,
-      scope: false
+      version: 'latest'
     }
-    this.action = 'install';
     this.options = Object.assign(defaultOptions,options);
   }
 
@@ -70,7 +71,7 @@ class NpmUninstall extends NpmExec{
     // console.log(this.options);
     // console.log('Action: ' + this.action);
     // console.log('Arguments: ' + this.arguments);
-    if(this.requiredOptions(this.options,this.required)){
+    if(this.checkErrors(this.options,this.valueTypes)){
       this.prepareCommand();
       return this.launchExec();
     }

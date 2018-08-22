@@ -18,15 +18,16 @@ class NpmExec{
     }
   }
 
-  requiredOptions(options,required){
+  checkErrors(options,valueTypes){
     let isValid = true;
-    Object.keys(required).forEach((key)=>{
-      if(!options.hasOwnProperty(key) || (options.hasOwnProperty(key) && typeof options[key] != required[key])){
+    Object.keys(valueTypes).forEach((key)=>{
+      if(!options.hasOwnProperty(key) && valueTypes[key].required){
+        isValid = false;
+      }
+      if((options.hasOwnProperty(key) && typeof options[key] != valueTypes[key].value)){
         isValid = false;
       }
     });
-    console.log('UNOOOO');
-    console.log('isValid: ' + this.canRun);
     return isValid;
   }
 
