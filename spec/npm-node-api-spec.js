@@ -1,5 +1,5 @@
-import NpmNodeApi from '../index';
-
+import NpmNodeApi from '../dist/main.js';
+console.log(NpmNodeApi);
 describe("npm node api spec", function() {
   let npmNodeApi; 
   beforeEach(()=>{

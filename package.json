@@ -11,7 +11,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "test": "jasmine",
-    "build": "webpack",
+    "pro": "webpack --pro",
     "watch": "webpack --watch"
   },
   "dependencies": {},
@@ -19,7 +19,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-latest": "^6.24.1",
+    "babel-preset-minify": "^0.4.3",
     "babel-register": "^6.26.0",
     "jasmine": "^3.2.0",
     "webpack": "^4.16.5",

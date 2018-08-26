@@ -1,4 +1,4 @@
-import NpmNodeApi from '../index';
+import NpmNodeApi from '../dist/main.js';
 
 describe("npm node api spec", function() {
   let npmNodeApi; 

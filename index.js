@@ -67,7 +67,4 @@ class NpmNodeApi extends EventEmitter{
   }
 }
 
-
-let test = new NpmNodeApi();
-
 export default NpmNodeApi;
