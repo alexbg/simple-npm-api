@@ -1,7 +1,11 @@
-import PackageController from '../src/package/package-controller';
+import NpmNodeApi from '../index';
 
 describe("npm node api spec", function() {
-  it("Create npm node api object",function(){
-    expect(true).toBe(true);
+  let npmNodeApi; 
+  beforeEach(()=>{
+    npmNodeApi = new NpmNodeApi();
+  });
+  it("Check instance of NpmNodeApi",function(){
+    expect(typeof npmNodeApi).toBe('object');
   });
 });

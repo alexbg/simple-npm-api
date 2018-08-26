@@ -49,7 +49,7 @@ class NpmNodeApi extends EventEmitter{
         return uninstallObject;
       }
     }
-    return false;
+    return null;
   }
   run(options){
     let runObject = new NpmRun(options);
