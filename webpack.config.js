@@ -11,7 +11,7 @@ module.exports = (env,args) => {
   }
 
   config = {
-    entry: './index.js',
+    entry: ['./index.js'],
     mode: mode,
     target: 'node',
     watchOptions: {
