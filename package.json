@@ -1,6 +1,6 @@
 {
   "name": "simple-npm-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "simple npm api for node",
   "author": "Alejandro Barata <alexbgdev@gmail.com>",
   "license": "GPL-3.0+",
