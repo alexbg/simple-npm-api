@@ -21,18 +21,25 @@ class NpmRun extends NpmExec{
       this.arguments = this.arguments.concat(this.options.arguments);
     }
   }
-
+  /**
+   *  
+   * @param {*} options
+   * @returns boolean
+   */
   launch(options){
     // console.log('LAUNCH');
     // console.log('Options: ');
     // console.log(this.options);
     // console.log('Action: ' + this.action);
     // console.log('Arguments: ' + this.arguments);
-    if(this.checkErrors(this.options,this.valueTypes)){
-      this.prepareCommand();
-      return this.launchExec();
-    }
-    return false;
+    return new Promise((resolve,reject)=>{
+      if(this.checkErrors(this.options,this.valueTypes)){
+        this.prepareCommand();
+        this.launchExec(resolve);
+      }else{
+        reject(this.errors);
+      }
+    });
   }
 }
 

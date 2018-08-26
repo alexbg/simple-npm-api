@@ -10,3 +10,26 @@ Simple Npm Api for nodejs
 ```sh
   npm install simple-npm-api
 ```
+
+Example:
+
+```javascript
+import NpmNodeApi from 'simple-npm-api'
+
+let sna = new NpmNodeApi;
+
+sna.install({
+  name: 'package name',
+  version: 'version package name',
+  global: true
+}).then((errors)=>{
+  if(errors){
+    // The command has runned but something happen
+    console.log(errors);
+  }
+}).catch((valueTypesErrors)=>{
+  // The parameters you have passed to the install class
+  // are not correct, for example if global is not a boolean;
+  console.log(valueTypesErrors);
+});
+```

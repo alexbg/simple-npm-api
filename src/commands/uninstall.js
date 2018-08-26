@@ -6,16 +6,15 @@ class NpmUninstall extends NpmExec{
     this.valueTypes = {
       save: {value: 'string', required: true},
       name: {value: 'string', required: true},
-      version: {value: 'string', required: true},
+      version: {value: 'string'},
       versionRange: {value: 'object'},
       scope: {value: 'string'},
       global: {value: 'boolean', required: true}
     }
     let defaultOptions = {
       start: true,
-      global: false,
       save: 'dev',
-      version: 'latest'
+      global: false
     }
     this.options = Object.assign(defaultOptions,options);
   }
@@ -23,7 +22,7 @@ class NpmUninstall extends NpmExec{
   prepareCommand(){
     this.reset();
     this.action = 'uninstall';
-    this.setVersion();
+    this.setName();
     this.setSaveMode();
     this.setGlobal();
     this.arguments.push(this.options.command);
@@ -33,15 +32,29 @@ class NpmUninstall extends NpmExec{
   }
 
   setVersion(){
-    let version = this.options.version;
-    let name = this.options.name;
-    if(typeof version == 'object'){
-      version = this.getVersionRange(version);
+    if(this.options.version){
+      let version = this.options.version;
+      let name = this.options.name;
+      if(typeof version == 'object'){
+        version = this.getVersionRange(version);
+      }
+      if(this.options.scope){
+        name = this.options.scope+'/'+this.options.name;
+      }
+      this.arguments.push(name+'@'+version);
     }
-    if(this.options.scope){
-      name = this.options.scope+'/'+this.options.name;
+  }
+
+  setName(){
+    if(this.options.version){
+      this.setVersion();
+    }else{
+      let name = this.options.name;
+      if(this.options.scope){
+        name = this.options.scope+'/'+this.options.name;
+      }
+      this.arguments.push(name);
     }
-    this.arguments.push(name+'@'+version);
   }
 
   setGlobal(){
@@ -71,11 +84,14 @@ class NpmUninstall extends NpmExec{
     // console.log(this.options);
     // console.log('Action: ' + this.action);
     // console.log('Arguments: ' + this.arguments);
-    if(this.checkErrors(this.options,this.valueTypes)){
-      this.prepareCommand();
-      return this.launchExec();
-    }
-    return false;
+    return new Promise((resolve,reject)=>{
+      if(this.checkErrors(this.options,this.valueTypes)){
+        this.prepareCommand();
+        this.launchExec(resolve);
+      }else{
+        reject(this.errors);
+      }
+    });
   }
 }
 

@@ -1,12 +1,12 @@
 import { execSync } from "child_process";
-
-// import { exec } from 'child_process';
+import { exec } from 'child_process';
 
 class NpmExec{
   constructor(){
     this.action;
     this.arguments = [];
     this.required = {}
+    this.errors = {}
   }
 
   static hasNpm(){
@@ -23,9 +23,10 @@ class NpmExec{
     Object.keys(valueTypes).forEach((key)=>{
       if(!options.hasOwnProperty(key) && valueTypes[key].required){
         isValid = false;
-      }
-      if((options.hasOwnProperty(key) && typeof options[key] != valueTypes[key].value)){
+        this.errors[key] = 'required';
+      }else if((options.hasOwnProperty(key) && typeof options[key] != valueTypes[key].value)){
         isValid = false;
+        this.errors[key] = 'must be ' + valueTypes[key].value;
       }
     });
     return isValid;
@@ -34,18 +35,19 @@ class NpmExec{
   reset(){
     this.arguments = [];
   }
-
-  launchExec(){
+  /**
+   * @returns boolean
+   */
+  launchExec(resolve){
+    // console.log(resolve);
+    this.errors = false;
     let command = ['npm',this.action].concat(this.arguments);
     console.log('COMMNAD: ' + command.join(' '));
-    return true;
-    // exec(command.join(' '),(error,stdout,stderr)=>{
-    //   if(error){
-    //     // console.log(error);
-    //     console.log(stderr);
-    //   }
-    //   // console.log(stdout);
-    // });
+    exec(command.join(' '),(error,stdout,stderr)=>{
+      if(error){
+        resolve(stderr);
+      }
+    });
   }
 }
 

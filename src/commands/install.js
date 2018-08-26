@@ -13,9 +13,9 @@ class NpmInstall extends NpmExec{
     }
     let defaultOptions = {
       start: true,
-      global: false,
       save: 'dev',
-      version: 'latest'
+      version: 'latest',
+      global: false
     }
     this.options = Object.assign(defaultOptions,options);
   }
@@ -33,15 +33,17 @@ class NpmInstall extends NpmExec{
   }
 
   setVersion(){
-    let version = this.options.version;
-    let name = this.options.name;
-    if(typeof version == 'object'){
-      version = this.getVersionRange(version);
+    if(this.options.version){
+      let version = this.options.version;
+      let name = this.options.name;
+      if(typeof version == 'object'){
+        version = this.getVersionRange(version);
+      }
+      if(this.options.scope){
+        name = this.options.scope+'/'+this.options.name;
+      }
+      this.arguments.push(name+'@'+version);
     }
-    if(this.options.scope){
-      name = this.options.scope+'/'+this.options.name;
-    }
-    this.arguments.push(name+'@'+version);
   }
 
   setGlobal(){
@@ -65,17 +67,25 @@ class NpmInstall extends NpmExec{
     }
   }
 
+  /**
+   *  
+   * @param {*} options
+   * @returns boolean
+   */
   launch(options){
     // console.log('LAUNCH');
     // console.log('Options: ');
     // console.log(this.options);
     // console.log('Action: ' + this.action);
     // console.log('Arguments: ' + this.arguments);
-    if(this.checkErrors(this.options,this.valueTypes)){
-      this.prepareCommand();
-      return this.launchExec();
-    }
-    return false;
+    return new Promise((resolve,reject)=>{
+      if(this.checkErrors(this.options,this.valueTypes)){
+        this.prepareCommand();
+        this.launchExec(resolve);
+      }else{
+        reject(this.errors);
+      }
+    });
   }
 }
 
