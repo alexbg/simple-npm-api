@@ -1,13 +1,13 @@
-import NpmNodeApi from '../dist/main.js';
+import SimpleNpmApi from '../dist/main.js';
 
 describe("npm node api spec", function() {
-  let npmNodeApi; 
+  let snp; 
   beforeEach(()=>{
-    npmNodeApi = new NpmNodeApi();
+    snp = new SimpleNpmApi();
   });
 
   it("Check run without errors",function(){
-    let npmRun = npmNodeApi.run({
+    let npmRun = snp.run({
       start: false,
       command: 'npm',
       arguments: '-v'
@@ -16,7 +16,7 @@ describe("npm node api spec", function() {
   });
 
   it("Check run with errors",function(){
-    let npmRun = npmNodeApi.run({
+    let npmRun = snp.run({
       start: false,
       command: 123
     });

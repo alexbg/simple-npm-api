@@ -1,6 +1,5 @@
-import { access, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import EventEmitter from 'events';
-const path = require('path');
 
 class PackageController extends EventEmitter{
   constructor(path){

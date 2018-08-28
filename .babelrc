@@ -14,7 +14,8 @@
           "node": "current"
         },
         "modules": false
-      }]]
+      }],
+    "minify"]
     },
     "unittest" : {
       "presets": [["env", {

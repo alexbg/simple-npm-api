@@ -1,13 +1,13 @@
-import NpmNodeApi from '../dist/main.js';
+import SimpleNpmApi from '../dist/main.js';
 
 describe("npm node api spec", function() {
-  let npmNodeApi; 
+  let snp; 
   beforeEach(()=>{
-    npmNodeApi = new NpmNodeApi();
+    snp = new SimpleNpmApi();
   });
 
   it("Check install without errors",function(){
-    let npmInstall = npmNodeApi.install({
+    let npmInstall = snp.install({
       start: false,
       name: 'json'
     });
@@ -15,7 +15,7 @@ describe("npm node api spec", function() {
   });
 
   it("Check install with errors",function(){
-    let npmInstall = npmNodeApi.install({
+    let npmInstall = snp.install({
       start: false,
       name: 123
     });

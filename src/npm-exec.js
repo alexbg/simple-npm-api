@@ -1,5 +1,4 @@
-import { execSync } from "child_process";
-import { exec } from 'child_process';
+import { execSync, exec } from "child_process";
 
 class NpmExec{
   constructor(){

@@ -1,4 +1,3 @@
-// import fs from 'fs';
 import EventEmitter from 'events';
 import PackageController from './src/package/package-controller';
 import NpmInstall from './src/commands/install';
@@ -6,7 +5,7 @@ import NpmUninstall from './src/commands/uninstall';
 import NpmRun from './src/commands/run';
 import NpmExec from './src/npm-exec';
 
-class NpmNodeApi extends EventEmitter{
+class SimpleNpmApi extends EventEmitter{
   constructor(path){
     super();
     if(!NpmExec.hasNpm()){
@@ -67,4 +66,4 @@ class NpmNodeApi extends EventEmitter{
   }
 }
 
-export default NpmNodeApi;
+export default SimpleNpmApi;

@@ -1,11 +1,11 @@
-import NpmNodeApi from '../dist/main.js';
+import SimpleNpmApi from '../dist/main.js';
 
 describe("npm node api spec", function() {
-  let npmNodeApi; 
+  let snp; 
   beforeEach(()=>{
-    npmNodeApi = new NpmNodeApi();
+    snp = new SimpleNpmApi();
   });
-  it("Check instance of NpmNodeApi",function(){
-    expect(typeof npmNodeApi).toBe('object');
+  it("Check instance of SimpleNpmApi",function(){
+    expect(typeof snp).toBe('object');
   });
 });

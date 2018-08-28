@@ -11,21 +11,23 @@
   "main": "./dist/main.js",
   "scripts": {
     "test": "jasmine BABEL_ENV=unittest",
-    "pro": "webpack --pro",
-    "watch": "webpack --watch"
+    "pro": "rollup -c rollup.config.pro.js --environment INCLUDE_DEPS,BUILD:production,BABEL_ENV:production",
+    "dev": "rollup -c --watch"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-minify": "^0.4.3",
     "babel-register": "^6.26.0",
     "jasmine": "^3.2.0",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0"
+    "rollup": "^0.65.0",
+    "rollup-plugin-babel": "^4.0.1"
   }
 }

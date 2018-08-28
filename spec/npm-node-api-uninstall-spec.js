@@ -1,13 +1,13 @@
-import NpmNodeApi from '../dist/main.js';
+import SimpleNpmApi from '../dist/main.js';
 
 describe("npm node api spec", function() {
-  let npmNodeApi; 
+  let snp; 
   beforeEach(()=>{
-    npmNodeApi = new NpmNodeApi();
+    snp = new SimpleNpmApi();
   });
 
   it("Check uninstall without errors",function(){
-    let npmUninstall = npmNodeApi.uninstall({
+    let npmUninstall = snp.uninstall({
       start: false,
       name: 'jasmine'
     });
@@ -15,7 +15,7 @@ describe("npm node api spec", function() {
   });
 
   it("Check uninstall with errors",function(){
-    let npmUninstall = npmNodeApi.uninstall({
+    let npmUninstall = snp.uninstall({
       start: false,
       name: 'jasmine',
       global: 1234
@@ -24,7 +24,7 @@ describe("npm node api spec", function() {
   });
 
   it("Check uninstall without real package",function(){
-    let npmUninstall = npmNodeApi.uninstall({
+    let npmUninstall = snp.uninstall({
       start: false,
       name: 1234
     });
