@@ -34,17 +34,20 @@ class NpmExec{
   reset(){
     this.arguments = [];
   }
-  /**
-   * @returns boolean
-   */
+
+  prepareCommand(){
+    this.reset();
+  }
+  
   launchExec(resolve){
-    // console.log(resolve);
     this.errors = false;
     let command = ['npm',this.action].concat(this.arguments);
     console.log('COMMNAD: ' + command.join(' '));
     exec(command.join(' '),(error,stdout,stderr)=>{
       if(error){
         resolve(stderr);
+      }else{
+        resolve()
       }
     });
   }

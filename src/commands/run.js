@@ -14,7 +14,7 @@ class NpmRun extends NpmExec{
   }
 
   prepareCommand(){
-    this.reset();
+    super.prepareCommand();
     this.action = 'run';
     this.arguments.push(this.options.command);
     if(this.options.arguments && this.options.arguments.length){
@@ -26,7 +26,7 @@ class NpmRun extends NpmExec{
    * @param {*} options
    * @returns boolean
    */
-  launch(options){
+  launch(){
     // console.log('LAUNCH');
     // console.log('Options: ');
     // console.log(this.options);

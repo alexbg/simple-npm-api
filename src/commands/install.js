@@ -21,18 +21,18 @@ class NpmInstall extends NpmExec{
   }
 
   prepareCommand(){
-    this.reset();
+    super.prepareCommand();
     this.action = 'install';
-    this.setVersion();
     this.setSaveMode();
     this.setGlobal();
+    this.setNameAndVersion();
     this.arguments.push(this.options.command);
     if(this.options.arguments && this.options.arguments.length){
       this.arguments = this.arguments.concat(this.options.arguments);
     }
   }
 
-  setVersion(){
+  setNameAndVersion(){
     if(this.options.version){
       let version = this.options.version;
       let name = this.options.name;
@@ -72,7 +72,7 @@ class NpmInstall extends NpmExec{
    * @param {*} options
    * @returns boolean
    */
-  launch(options){
+  launch(){
     // console.log('LAUNCH');
     // console.log('Options: ');
     // console.log(this.options);

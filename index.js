@@ -13,6 +13,11 @@ class SimpleNpmApi extends EventEmitter{
     }
     this.npmPackage = new PackageController();
   }
+  /**
+   * 
+   * @param {object} options
+   * @returns promise || installObject Object 
+   */
   install(options){
     let installObject = new NpmInstall(options);
     if(installObject.options.start){
@@ -28,10 +33,9 @@ class SimpleNpmApi extends EventEmitter{
     }
   }
   /**
-   * if it can create and launch the command, then it returns true
-   * if it can launch the command but it doesn't have start to true, it returns a NpmUninstall Object
+   * Return null if you doesn't have that package.
    * @param {object} options
-   * @returns boolean || NpmUninstall Object 
+   * @returns null || promise || NpmUninstall Object 
    */
   uninstall(options){
     if(this.npmPackage.hasPackage(options)){
@@ -50,6 +54,11 @@ class SimpleNpmApi extends EventEmitter{
     }
     return null;
   }
+  /**
+   * 
+   * @param {object} options
+   * @returns promise || runObject Object 
+   */
   run(options){
     let runObject = new NpmRun(options);
     if(runObject.options.start){

@@ -20,11 +20,11 @@ class NpmUninstall extends NpmExec{
   }
 
   prepareCommand(){
-    this.reset();
+    super.prepareCommand();
     this.action = 'uninstall';
-    this.setName();
     this.setSaveMode();
     this.setGlobal();
+    this.setName();
     this.arguments.push(this.options.command);
     if(this.options.arguments && this.options.arguments.length){
       this.arguments = this.arguments.concat(this.options.arguments);
@@ -78,7 +78,7 @@ class NpmUninstall extends NpmExec{
     }
   }
 
-  launch(options){
+  launch(){
     // console.log('LAUNCH');
     // console.log('Options: ');
     // console.log(this.options);

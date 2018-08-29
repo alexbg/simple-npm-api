@@ -14,9 +14,9 @@ Simple Npm Api for nodejs
 Example:
 
 ```javascript
-import NpmNodeApi from 'simple-npm-api'
+import SimpleNpmApi from 'simple-npm-api'
 
-let sna = new NpmNodeApi;
+let sna = new SimpleNpmApi;
 
 sna.install({
   name: 'package name',
